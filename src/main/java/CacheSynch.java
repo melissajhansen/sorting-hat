@@ -24,6 +24,8 @@ import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.*;
 
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,6 +70,13 @@ public class CacheSynch {
     public static void main(String[] args) throws Exception {
 
     	System.out.println("Running streaming client....");
+
+        //Check to see whether synch is runnable
+        Jedis jedis = getJedisConnection();
+        if (Boolean.valueOf(jedis.get("Connect_Runnable"))!=true) {
+            return;
+        }
+        jedis.close();
 
         final BayeuxClient client = makeClient();
         client.getChannel(Channel.META_HANDSHAKE).addListener
@@ -249,6 +258,12 @@ public class CacheSynch {
         client.setCookie("login", user, 24 * 60 * 60 * 1000);
         client.setCookie("sid", sid, 24 * 60 * 60 * 1000);
         client.setCookie("language", "en_US", 24 * 60 * 60 * 1000);
+    }
+
+    private static Jedis getJedisConnection() throws URISyntaxException {
+        URI redisURI = new URI(System.getenv("REDIS_URL"));
+        Jedis jedis = new Jedis(redisURI);
+        return jedis;
     }
 
 }
