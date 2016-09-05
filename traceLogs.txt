@@ -1,0 +1,156 @@
+WSC: Creating a new connection to https://test.salesforce.com/services/Soap/u/36.0 Proxy = DIRECT username null
+------------ Request start   ----------
+<?xml version="1.0" encoding="UTF-8"?><env:Envelope
+   xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <env:Body>
+  <m:login xmlns:m="urn:partner.soap.sforce.com" xmlns:sobj="urn:sobject.partner.soap.sforce.com">
+   <m:username>mprcic@stand.org.qa</m:username>
+   <m:password>A03701552.0qaqsLOQS32c8QMy5vDMG0clC2q</m:password>
+  </m:login>
+ </env:Body>
+</env:Envelope>
+------------ Request end   ----------
+null=[HTTP/1.1 200 OK]
+Strict-Transport-Security=[max-age=10886400; includeSubDomains; preload]
+Content-Encoding=[gzip]
+Set-Cookie=[BrowserId=YATQkmxxTUGJ_LV-NGQAHw;Path=/;Domain=.salesforce.com;Expires=Sun, 01-May-2016 21:33:28 GMT]
+Expires=[Thu, 01 Jan 1970 00:00:00 GMT]
+Content-Length=[799]
+Content-Security-Policy-Report-Only=[default-src https:; script-src https: 'unsafe-inline' 'unsafe-eval'; style-src https: 'unsafe-inline'; img-src https: data:; font-src https: data:; report-uri /_/ContentDomainCSPNoAuth?type=login]
+Date=[Wed, 02 Mar 2016 21:33:28 GMT]
+Content-Type=[text/xml;charset=UTF-8]
+------------ Response start ----------
+  <?xml version="1.0" encoding="UTF-8"?>
+    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="urn:partner.soap.sforce.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <soapenv:Body>
+        <loginResponse>
+          <result>
+            <metadataServerUrl>https://cs27.salesforce.com/services/Soap/m/36.0/00D220000008aZA</metadataServerUrl>
+            <passwordExpired>false</passwordExpired>
+            <sandbox>true</sandbox>
+            <serverUrl>https://cs27.salesforce.com/services/Soap/u/36.0/00D220000008aZA</serverUrl>
+            <sessionId>00D220000008aZA!AQsAQI.jw8u5YWIRJIBaIWJRptHthWZO4KNEkoFlitp4eKoKO5QNymh2kCyfwX18wh6HtXzl.e0cfcFu_rtiPa5R.TfVo04j</sessionId>
+            <userId>005E0000000Z5aRIAS</userId>
+            <userInfo>
+              <accessibilityMode>false</accessibilityMode>
+              <currencySymbol>$</currencySymbol>
+              <orgAttachmentFileSizeLimit>5242880</orgAttachmentFileSizeLimit>
+              <orgDefaultCurrencyIsoCode>USD</orgDefaultCurrencyIsoCode>
+              <orgDisallowHtmlAttachments>false</orgDisallowHtmlAttachments>
+              <orgHasPersonAccounts>false</orgHasPersonAccounts>
+              <organizationId>00D220000008aZAEAY</organizationId>
+              <organizationMultiCurrency>false</organizationMultiCurrency>
+              <organizationName>Stand for Children</organizationName>
+              <profileId>00eE0000000VuRfIAK</profileId>
+              <roleId>00EE0000000gbhhMAA</roleId>
+              <sessionSecondsValid>14400</sessionSecondsValid>
+              <userDefaultCurrencyIsoCode xsi:nil="true"/>
+                <userEmail>mprcic@stand.org</userEmail>
+                <userFullName>Melissa Prcic</userFullName>
+                <userId>005E0000000Z5aRIAS</userId>
+                <userLanguage>en_US</userLanguage>
+                <userLocale>en_US</userLocale>
+                <userName>mprcic@stand.org.qa</userName>
+                <userTimeZone>America/Los_Angeles</userTimeZone>
+                <userType>Standard</userType>
+                <userUiSkin>Theme3</userUiSkin>
+            </userInfo>
+          </result>
+        </loginResponse>
+      </soapenv:Body>
+    </soapenv:Envelope>
+------------ Response end   ----------
+WSC: Creating a new connection to https://test.salesforce.com/services/async/36.0/job/ Proxy = DIRECT username null
+------------ Request start   ----------
+{"id":null,"operation":"query","object":"Contact","createdById":null,"createdDate":null,"systemModstamp":null,"state":null,"externalIdFieldName":null,"concurrencyMode":"Parallel","fastPathEnabled":false,"numberBatchesQueued":0,"numberBatchesInProgress":0,"numberBatchesCompleted":0,"numberBatchesFailed":0,"numberBatchesTotal":0,"numberRecordsProcessed":0,"numberRetries":0,"contentType":"JSON","apiVersion":0.0,"assignmentRuleId":null,"numberRecordsFailed":0,"totalProcessingTime":0,"apiActiveProcessingTime":0,"apexProcessingTime":0}
+------------ Request end   ----------
+null=[HTTP/1.1 400 Bad Request]
+Strict-Transport-Security=[max-age=10886400; includeSubDomains; preload]
+Set-Cookie=[BrowserId=qPk7lnhSRbSXSCtAwgHQGQ;Path=/;Domain=.salesforce.com;Expires=Sun, 01-May-2016 21:33:28 GMT]
+Expires=[Thu, 01 Jan 1970 00:00:00 GMT]
+Content-Length=[118]
+Content-Security-Policy-Report-Only=[default-src https:; script-src https: 'unsafe-inline' 'unsafe-eval'; style-src https: 'unsafe-inline'; img-src https: data:; font-src https: data:; report-uri /_/ContentDomainCSPNoAuth?type=login]
+Date=[Wed, 02 Mar 2016 21:33:28 GMT]
+Content-Type=[application/json]
+------------ Response start ----------
+{"exceptionCode":"InvalidUrl","exceptionMessage":"Destination URL not reset. The URL returned from login must be set"}
+------------ Response end   ----------
+WSC: Creating a new connection to https://test.salesforce.com/services/Soap/u/36.0 Proxy = DIRECT username null
+------------ Request start   ----------
+<?xml version="1.0" encoding="UTF-8"?><env:Envelope
+   xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <env:Body>
+  <m:login xmlns:m="urn:partner.soap.sforce.com" xmlns:sobj="urn:sobject.partner.soap.sforce.com">
+   <m:username>mprcic@stand.org.qa</m:username>
+   <m:password>A03701552.0qaqsLOQS32c8QMy5vDMG0clC2q</m:password>
+  </m:login>
+ </env:Body>
+</env:Envelope>
+------------ Request end   ----------
+null=[HTTP/1.1 200 OK]
+Strict-Transport-Security=[max-age=10886400; includeSubDomains; preload]
+Content-Encoding=[gzip]
+Set-Cookie=[BrowserId=J3UNlcCgSfK2J7uy0KkLlw;Path=/;Domain=.salesforce.com;Expires=Sun, 01-May-2016 21:35:53 GMT]
+Expires=[Thu, 01 Jan 1970 00:00:00 GMT]
+Content-Length=[799]
+Content-Security-Policy-Report-Only=[default-src https:; script-src https: 'unsafe-inline' 'unsafe-eval'; style-src https: 'unsafe-inline'; img-src https: data:; font-src https: data:; report-uri /_/ContentDomainCSPNoAuth?type=login]
+Date=[Wed, 02 Mar 2016 21:35:53 GMT]
+Content-Type=[text/xml;charset=UTF-8]
+------------ Response start ----------
+  <?xml version="1.0" encoding="UTF-8"?>
+    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="urn:partner.soap.sforce.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <soapenv:Body>
+        <loginResponse>
+          <result>
+            <metadataServerUrl>https://cs27.salesforce.com/services/Soap/m/36.0/00D220000008aZA</metadataServerUrl>
+            <passwordExpired>false</passwordExpired>
+            <sandbox>true</sandbox>
+            <serverUrl>https://cs27.salesforce.com/services/Soap/u/36.0/00D220000008aZA</serverUrl>
+            <sessionId>00D220000008aZA!AQsAQI.jw8u5YWIRJIBaIWJRptHthWZO4KNEkoFlitp4eKoKO5QNymh2kCyfwX18wh6HtXzl.e0cfcFu_rtiPa5R.TfVo04j</sessionId>
+            <userId>005E0000000Z5aRIAS</userId>
+            <userInfo>
+              <accessibilityMode>false</accessibilityMode>
+              <currencySymbol>$</currencySymbol>
+              <orgAttachmentFileSizeLimit>5242880</orgAttachmentFileSizeLimit>
+              <orgDefaultCurrencyIsoCode>USD</orgDefaultCurrencyIsoCode>
+              <orgDisallowHtmlAttachments>false</orgDisallowHtmlAttachments>
+              <orgHasPersonAccounts>false</orgHasPersonAccounts>
+              <organizationId>00D220000008aZAEAY</organizationId>
+              <organizationMultiCurrency>false</organizationMultiCurrency>
+              <organizationName>Stand for Children</organizationName>
+              <profileId>00eE0000000VuRfIAK</profileId>
+              <roleId>00EE0000000gbhhMAA</roleId>
+              <sessionSecondsValid>14400</sessionSecondsValid>
+              <userDefaultCurrencyIsoCode xsi:nil="true"/>
+                <userEmail>mprcic@stand.org</userEmail>
+                <userFullName>Melissa Prcic</userFullName>
+                <userId>005E0000000Z5aRIAS</userId>
+                <userLanguage>en_US</userLanguage>
+                <userLocale>en_US</userLocale>
+                <userName>mprcic@stand.org.qa</userName>
+                <userTimeZone>America/Los_Angeles</userTimeZone>
+                <userType>Standard</userType>
+                <userUiSkin>Theme3</userUiSkin>
+            </userInfo>
+          </result>
+        </loginResponse>
+      </soapenv:Body>
+    </soapenv:Envelope>
+------------ Response end   ----------
+WSC: Creating a new connection to https://test.salesforce.com/services/async/36.0/job/ Proxy = DIRECT username null
+------------ Request start   ----------
+{"id":null,"operation":"query","object":"Contact","createdById":null,"createdDate":null,"systemModstamp":null,"state":null,"externalIdFieldName":null,"concurrencyMode":"Parallel","fastPathEnabled":false,"numberBatchesQueued":0,"numberBatchesInProgress":0,"numberBatchesCompleted":0,"numberBatchesFailed":0,"numberBatchesTotal":0,"numberRecordsProcessed":0,"numberRetries":0,"contentType":"JSON","apiVersion":0.0,"assignmentRuleId":null,"numberRecordsFailed":0,"totalProcessingTime":0,"apiActiveProcessingTime":0,"apexProcessingTime":0}
+------------ Request end   ----------
+null=[HTTP/1.1 400 Bad Request]
+Strict-Transport-Security=[max-age=10886400; includeSubDomains; preload]
+Set-Cookie=[BrowserId=afvIIEwNQ-uxPSFZqyAW-A;Path=/;Domain=.salesforce.com;Expires=Sun, 01-May-2016 21:35:53 GMT]
+Expires=[Thu, 01 Jan 1970 00:00:00 GMT]
+Content-Length=[118]
+Content-Security-Policy-Report-Only=[default-src https:; script-src https: 'unsafe-inline' 'unsafe-eval'; style-src https: 'unsafe-inline'; img-src https: data:; font-src https: data:; report-uri /_/ContentDomainCSPNoAuth?type=login]
+Date=[Wed, 02 Mar 2016 21:35:53 GMT]
+Content-Type=[application/json]
+------------ Response start ----------
+{"exceptionCode":"InvalidUrl","exceptionMessage":"Destination URL not reset. The URL returned from login must be set"}
+------------ Response end   ----------
