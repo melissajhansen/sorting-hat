@@ -63,6 +63,7 @@ public class SObjectSynch {
     private static final String PASSWORD = System.getenv("SFDC_DEMO_PASS");
     private static final String AUTH_ENDPOINT = System.getenv("PROD_AUTH_ENDPOINT");
     private static final String REST_ENDPOINT = System.getenv("PROD_REST_ENDPOINT");
+    private static final String SG_TOKEN = System.getenv("SENDGRID_TOKEN");
     private static String lastSynchDT;
     private static String currentSynchDT;
     static PartnerConnection prtnrConnection;
@@ -515,7 +516,7 @@ public class SObjectSynch {
     public void sendEmail (String emailAddress, String message, String subject) {
 
     	try {
-			SendGrid sendgrid = new SendGrid("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");
+			SendGrid sendgrid = new SendGrid(SG_TOKEN);
 
 		    SendGrid.Email email = new SendGrid.Email();
 

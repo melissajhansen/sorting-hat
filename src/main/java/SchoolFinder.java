@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.util.*;
+import java.util.Map.Entry;
 import java.io.*;
 
 import java.net.MalformedURLException;
@@ -58,50 +59,55 @@ public class SchoolFinder {
 			System.out.println("Starting to run....");
 			//Setup Connection for Postgres Query
 	        Connection conn = getPGConnection();
-			Statement stmt = conn.createStatement();
 			
-			//Build map to store School Count
-			HashMap< String, Integer> accountSchoolCountMap = new HashMap< String, Integer>();
+			//Build map to store the point value of each Answer
+			HashMap< String, String> contactSchoolMap = new HashMap< String, String>();
 
-			//query for and build a map of each zip code and the count of schools in each
-			ResultSet schools = stmt.executeQuery("SELECT schools.schooldata.lzip09 FROM schools.schooldata");
-			HashMap< String, Integer> zipCodeMap = new HashMap< String, Integer>();
-			while(schools.next()) {
-				String zip = schools.getString("lzip09");
-				//if the zip code is in the map, increment the count
-				if (zipCodeMap.get(zip)!=null) {
-					Integer mapCount = zipCodeMap.get(zip);
-					int count = ++mapCount;
-					zipCodeMap.put(zip, count);
-				} else {
-				//otherwise add to the map with a count of one
-					zipCodeMap.put(zip,1);
-				}
+			Statement answerStmt = conn.createStatement(); 
+			ResultSet answerValues = answerStmt.executeQuery("SELECT answer_values.question_id, answer_values.answer_value, answer_values.gry_value, answer_values.rav_value, answer_values.huff_value, answer_values.sly_value, questions.question_field_name FROM sort.answer_values INNER JOIN sort.questions ON answer_values.question_id=questions.question_id");
+			
+
+			//Build out a map of the answers indexed by the question field name
+			HashMap < String, Answer > answerMap = new HashMap < String, Answer >();
+			while (answerValues.next()) {
+				Answer ans = new Answer(answerValues.getString("question_id"), answerValues.getString("answer_value"), answerValues.getInt("gry_value"), answerValues.getInt("rav_value"), answerValues.getInt("huff_value"), answerValues.getInt("sly_value"));
+				//the key is the quesion field name concatenated with the answer value
+				answerMap.put(answerValues.getString("question_field_name")+ans.answer_value, ans);
 			}
+	
+			//Query all Contacts who need a school assigment
+			Statement conStmt = conn.createStatement(); 
+			ResultSet studentsToSort = conStmt.executeQuery("SELECT salesforce.contact.sfid, salesforce.contact.dawn_or_dusk__c, salesforce.contact.heads_or_tails__c, salesforce.contact.dont_call_me__c, salesforce.contact.what_instrument__c, salesforce.contact.which_smell__c  FROM salesforce.contact WHERE (salesforce.contact.CreatedDate > current_date - interval '1 week' OR salesforce.contact.LastModifiedDate >= current_date - interval '1 week' )");
 			
+			//This pattern is for demo purposes only.  For Production we would want the logic independent of the particular fields
+			List < String > questionFieldNames = Arrays.asList("Dawn_or_Dusk__c","Heads_or_Tails__c","Dont_Call_Me__c","What_Instrument__c","Which_Smell__c");
 
-			//Criteria: all Accounts added or Updated in the last week
-			Statement acctStmt = conn.createStatement(); 
-			ResultSet accountsToUpdate = acctStmt.executeQuery("SELECT salesforce.account.sfid, salesforce.account.name, salesforce.account.BillingPostalCode FROM salesforce.account WHERE (salesforce.account.CreatedDate > current_date - interval '1 week' OR salesforce.account.LastModifiedDate >= current_date - interval '1 week' )");
-			
-			//Loop through the accounts, updating the count of schools nearby
-			while(accountsToUpdate.next()) {
-				String accountId = accountsToUpdate.getString("sfid");
-				String accountZip = accountsToUpdate.getString("BillingPostalCode");
-				int totalCount = 0;
-				//if there is no, leave it at 0
-				if (accountZip!=null && accountZip!="") {
-					//look for the zip code in our map.  IF it's there, grab the count for our Account
-					if (zipCodeMap.get(accountZip)!=null) {
-						totalCount = zipCodeMap.get(accountZip);
-					}
+			//Loop through the students, updating the score for each school based on answers
+			while(studentsToSort.next()) {
+				String contactId = studentsToSort.getString("sfid");
+				HashMap < String, Integer > scoreMap = new HashMap < String, Integer >();
+				scoreMap.put("Gryffindor", 0);
+				scoreMap.put("Ravenclaw", 0);
+				scoreMap.put("Hufflepuff", 0);
+				scoreMap.put("Slytherin", 0);
+				for (String q: questionFieldNames) {
+					Answer a = answerMap.get(q+studentsToSort.getString(q));
+					scoreMap.put("Gryffindor",scoreMap.get("Gryffindor")+a.gry_value);
+					scoreMap.put("Ravenclaw",scoreMap.get("Ravenclaw")+a.rav_value);
+					scoreMap.put("Hufflepuff",scoreMap.get("Hufflepuff")+a.huff_value);
+					scoreMap.put("Slytherin",scoreMap.get("Slytherin")+a.sly_value);
+
+					System.out.println("scoremap: "+scoreMap);
 				}
 
-				//Add the count to our map
-				accountSchoolCountMap.put(accountId, totalCount);
+				//Great, now we have all four score totals.  Assign them to the correct house based on the highest score
+				String selectedSchool = getMaxEntry(scoreMap);
+				contactSchoolMap.put(contactId, selectedSchool);
+
+
 			}
 
-			SchoolFinder.updateSchoolsCount(accountSchoolCountMap);
+			//SchoolFinder.updateSchoolsCount(accountSchoolCountMap);
 
     	} catch (Exception ex) {
     		ex.printStackTrace();
@@ -349,4 +355,22 @@ public class SchoolFinder {
         	return DriverManager.getConnection(dbUrl, username, password);
         }
     }
+
+
+    //returns the key associated with the largest value.  If there are multiple keys with the same value, returns the last one
+    public static String getMaxEntry(Map<String, Integer> map) {        
+	    Entry<String, Integer> maxEntry = null;
+	    Integer max = Collections.max(map.values());
+
+	    for(Entry<String, Integer> entry : map.entrySet()) {
+	        Integer value = entry.getValue();
+
+	        if(null != value && max == value) {
+	            maxEntry = entry;
+	        }
+	    }
+
+	    return maxEntry.getKey();
+	}
+
 }

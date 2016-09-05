@@ -197,15 +197,6 @@ public class CacheSynch {
                 }
             }
         });
-
-
-
-        System.out.println("Waiting for streamed account data from your organization ...");
-        // while (true) {
-        //     // This infinite loop is for demo only,
-        //     // to receive streamed events on the 
-        //     // specified topic from your organization.
-        // }
     }
 
 
