@@ -1,11 +1,9 @@
-import com.sforce.soap.enterprise.Connector;
-import com.sforce.soap.enterprise.DeleteResult;
-import com.sforce.soap.enterprise.EnterpriseConnection;
-import com.sforce.soap.enterprise.Error;
-import com.sforce.soap.enterprise.QueryResult;
-import com.sforce.soap.enterprise.SaveResult;
-import com.sforce.soap.enterprise.sobject.Account;
-import com.sforce.soap.enterprise.sobject.Contact;
+import com.sforce.soap.partner.Connector;
+import com.sforce.soap.partner.DeleteResult;
+import com.sforce.soap.partner.PartnerConnection;
+import com.sforce.soap.partner.Error;
+import com.sforce.soap.partner.QueryResult;
+import com.sforce.soap.partner.SaveResult;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
 
@@ -54,7 +52,7 @@ public class CacheSynch {
     private static final String USERNAME = System.getenv("SFDC_DEMO_USERNAME");
     private static final String PASSWORD = System.getenv("SFDC_DEMO_PASS");
 
-    static EnterpriseConnection connection;
+    static PartnerConnection connection;
 
     private static final boolean USE_COOKIES = false;
 
