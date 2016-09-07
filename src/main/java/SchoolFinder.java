@@ -97,15 +97,20 @@ public class SchoolFinder {
 					System.out.println("#SortingHat-getquestion: "+studentsToSort.getString(q));
 					Answer a = answerMap.get(q+studentsToSort.getString(q));
 					System.out.println("#SortingHat-answer: "+a);
-					scoreMap.put("Gryffindor",scoreMap.get("Gryffindor")+a.gry_value);
-					scoreMap.put("Ravenclaw",scoreMap.get("Ravenclaw")+a.rav_value);
-					scoreMap.put("Hufflepuff",scoreMap.get("Hufflepuff")+a.huff_value);
-					scoreMap.put("Slytherin",scoreMap.get("Slytherin")+a.sly_value);
+					//Only proceed if a is not null
+					if (a!=null) {
+						scoreMap.put("Gryffindor",scoreMap.get("Gryffindor")+a.gry_value);
+						scoreMap.put("Ravenclaw",scoreMap.get("Ravenclaw")+a.rav_value);
+						scoreMap.put("Hufflepuff",scoreMap.get("Hufflepuff")+a.huff_value);
+						scoreMap.put("Slytherin",scoreMap.get("Slytherin")+a.sly_value);
 
-					System.out.println("#SortingHat-scoremap: "+scoreMap);
+						System.out.println("#SortingHat-scoremap: "+scoreMap);
+					}
+					
 				}
 
 				//Great, now we have all four score totals.  Assign them to the correct house based on the highest score
+				
 				String selectedSchool = getMaxEntry(scoreMap);
 				contactSchoolMap.put(contactId, selectedSchool);
 
