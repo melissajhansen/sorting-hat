@@ -110,13 +110,14 @@ public class SchoolFinder {
 				}
 
 				//Great, now we have all four score totals.  Assign them to the correct house based on the highest score
-
-				String selectedSchool = getMaxEntry(scoreMap);
-				contactSchoolMap.put(contactId, selectedSchool);
-
-
+				//Only get an assignment if the scores are all greater than zero
+				if (scoreMap.get("Gryffindor")>0 && scoreMap.get("Ravenclaw")>0 && scoreMap.get("Hufflepuff")>0 && scoreMap.get("Slytherin")>0) {
+					String selectedSchool = getMaxEntry(scoreMap);
+					contactSchoolMap.put(contactId, selectedSchool);
+				}
 			}
 
+			System.out.println("#SortingHat-contactSchoolMap: "+contactSchoolMap);
 			//SchoolFinder.updateSchoolsCount(accountSchoolCountMap);
 
     	} catch (Exception ex) {
@@ -380,7 +381,7 @@ public class SchoolFinder {
 	            maxEntry = entry;
 	        }
 	    }
-	    System.out.println("#SortingHat-maxentry: "+maxEntry.getKey());
+
 	    return maxEntry.getKey();
 	}
 
