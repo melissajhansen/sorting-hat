@@ -92,12 +92,13 @@ public class SchoolFinder {
 				scoreMap.put("Slytherin", 0);
 				for (String q: questionFieldNames) {
 					Answer a = answerMap.get(q+studentsToSort.getString(q));
+					System.out.println("#SortingHat-answer: "+a);
 					scoreMap.put("Gryffindor",scoreMap.get("Gryffindor")+a.gry_value);
 					scoreMap.put("Ravenclaw",scoreMap.get("Ravenclaw")+a.rav_value);
 					scoreMap.put("Hufflepuff",scoreMap.get("Hufflepuff")+a.huff_value);
 					scoreMap.put("Slytherin",scoreMap.get("Slytherin")+a.sly_value);
 
-					System.out.println("scoremap: "+scoreMap);
+					System.out.println("#SortingHat-scoremap: "+scoreMap);
 				}
 
 				//Great, now we have all four score totals.  Assign them to the correct house based on the highest score
