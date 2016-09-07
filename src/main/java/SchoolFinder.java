@@ -93,18 +93,13 @@ public class SchoolFinder {
 				scoreMap.put("Hufflepuff", 0);
 				scoreMap.put("Slytherin", 0);
 				for (String q: questionFieldNames) {
-					System.out.println("#SortingHat-q: "+q);
-					System.out.println("#SortingHat-getquestion: "+studentsToSort.getString(q));
 					Answer a = answerMap.get(q+studentsToSort.getString(q));
-					System.out.println("#SortingHat-answer: "+a);
 					//Only proceed if a is not null
 					if (a!=null) {
 						scoreMap.put("Gryffindor",scoreMap.get("Gryffindor")+a.gry_value);
 						scoreMap.put("Ravenclaw",scoreMap.get("Ravenclaw")+a.rav_value);
 						scoreMap.put("Hufflepuff",scoreMap.get("Hufflepuff")+a.huff_value);
 						scoreMap.put("Slytherin",scoreMap.get("Slytherin")+a.sly_value);
-
-						System.out.println("#SortingHat-scoremap: "+scoreMap);
 					}
 					
 				}
@@ -118,7 +113,7 @@ public class SchoolFinder {
 			}
 
 			System.out.println("#SortingHat-contactSchoolMap: "+contactSchoolMap);
-			//SchoolFinder.updateSchoolsCount(accountSchoolCountMap);
+			updateSchoolAssigment(contactSchoolMap);
 
     	} catch (Exception ex) {
     		ex.printStackTrace();
@@ -126,7 +121,7 @@ public class SchoolFinder {
 
 	}
 
-	public static void updateSchoolsCount (HashMap< String, Integer> schoolCountMap) throws AsyncApiException, ConnectionException, IOException {
+	public static void updateSchoolAssigment (HashMap< String, String> schoolAssignmentMap) throws AsyncApiException, ConnectionException, IOException {
 
 		BulkConnection bulkConn = getBulkConnection();
 
@@ -135,14 +130,14 @@ public class SchoolFinder {
 		FileWriter fileWriter = null;
 		try {
 
-			fileWriter = new FileWriter("SchoolCountUpdates");
+			fileWriter = new FileWriter("SchoolAssignmentUpdates");
 			//put in the header row
-			fileWriter.append("ID,Schools_in_Zipcode_Count__c\n");
+			fileWriter.append("ID,House_Assignment__c\n");
 			
-			int listSize=schoolCountMap.size();
+			int listSize=schoolAssignmentMap.size();
 			// SObject[] records = new SObject[listSize];
 
-	        Iterator it = schoolCountMap.entrySet().iterator();
+	        Iterator it = schoolAssignmentMap.entrySet().iterator();
 
 	        for (int i=0; i<listSize; i++) {
 	        	Map.Entry account = (Map.Entry) it.next();
@@ -167,8 +162,8 @@ public class SchoolFinder {
 		}
 
 		//Ok, now let's do a bulk create 
-		JobInfo job = createJob("Account", bulkConn);
-        List<BatchInfo> batchInfoList = createBatchesFromCSVFile(bulkConn, job, "SchoolCountUpdates");
+		JobInfo job = createJob("Contact", bulkConn);
+        List<BatchInfo> batchInfoList = createBatchesFromCSVFile(bulkConn, job, "SchoolAssignmentUpdates");
         closeJob(bulkConn, job.getId());
         awaitCompletion(bulkConn, job, batchInfoList);
         checkResults(bulkConn, job, batchInfoList);
@@ -370,7 +365,6 @@ public class SchoolFinder {
 
     //returns the key associated with the largest value.  If there are multiple keys with the same value, returns the last one
     public static String getMaxEntry(Map<String, Integer> map) {    
-    	System.out.println("#SortingHat-incomingMap: "+map);   
 	    Entry<String, Integer> maxEntry = null;
 	    Integer max = Collections.max(map.values());
 
