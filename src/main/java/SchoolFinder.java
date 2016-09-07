@@ -110,7 +110,7 @@ public class SchoolFinder {
 				}
 
 				//Great, now we have all four score totals.  Assign them to the correct house based on the highest score
-				
+
 				String selectedSchool = getMaxEntry(scoreMap);
 				contactSchoolMap.put(contactId, selectedSchool);
 
@@ -368,7 +368,8 @@ public class SchoolFinder {
 
 
     //returns the key associated with the largest value.  If there are multiple keys with the same value, returns the last one
-    public static String getMaxEntry(Map<String, Integer> map) {        
+    public static String getMaxEntry(Map<String, Integer> map) {    
+    	System.out.println("#SortingHat-incomingMap: "+map);   
 	    Entry<String, Integer> maxEntry = null;
 	    Integer max = Collections.max(map.values());
 
@@ -379,7 +380,7 @@ public class SchoolFinder {
 	            maxEntry = entry;
 	        }
 	    }
-
+	    System.out.println("#SortingHat-maxentry: "+maxEntry.getKey());
 	    return maxEntry.getKey();
 	}
 
