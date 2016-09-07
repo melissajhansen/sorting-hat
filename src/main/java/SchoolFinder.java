@@ -74,6 +74,8 @@ public class SchoolFinder {
 				//the key is the quesion field name concatenated with the answer value
 				answerMap.put(answerValues.getString("question_field_name")+ans.answer_value, ans);
 			}
+
+			//Key format: Heads_or_Tails__cHeads
 	
 			//Query all Contacts who need a school assigment
 			Statement conStmt = conn.createStatement(); 
@@ -91,6 +93,8 @@ public class SchoolFinder {
 				scoreMap.put("Hufflepuff", 0);
 				scoreMap.put("Slytherin", 0);
 				for (String q: questionFieldNames) {
+					System.out.println("#SortingHat-q: "+q);
+					System.out.println("#SortingHat-getquestion: "+studentsToSort.getString(q));
 					Answer a = answerMap.get(q+studentsToSort.getString(q));
 					System.out.println("#SortingHat-answer: "+a);
 					scoreMap.put("Gryffindor",scoreMap.get("Gryffindor")+a.gry_value);
