@@ -41,7 +41,7 @@ import redis.clients.jedis.Jedis;
  * Listen for updates to our synched tables.  Update the cache (currently Postgres)
  **/
 
-public class CacheSynch {
+public class SFListener {
 
     // This URL is used only for logging in. The LoginResult 
     // returns a serverUrl which is then used for constructing
@@ -72,8 +72,10 @@ public class CacheSynch {
         //Check to see whether synch is runnable
         Jedis jedis = getJedisConnection();
         if (Boolean.valueOf(jedis.get("Connect_Runnable"))!=true) {
+            jedis.close();
             return;
         }
+        
         jedis.close();
 
         final BayeuxClient client = makeClient();
@@ -178,7 +180,6 @@ public class CacheSynch {
                 //********************************Start Working with Streaming Message**********************
 
                 //1.  Determine how many records have been updated since the last synch
-
                 //Initialize SObjectSynch
                 SObjectSynch synch = new SObjectSynch();
                 Integer updateSize = synch.getUpdateCount("Contact");

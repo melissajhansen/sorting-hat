@@ -78,7 +78,7 @@ public final class SoapLoginUtil {
     }
 
     private static String getSoapURL() throws MalformedURLException {
-        return new URL(CacheSynch.LOGIN_ENDPOINT + 
+        return new URL(SFListener.LOGIN_ENDPOINT + 
             getSoapUri()).toExternalForm();
     }
 

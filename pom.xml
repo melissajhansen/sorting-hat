@@ -130,7 +130,7 @@
             <assembleDirectory>target</assembleDirectory>
             <programs>
                 <program>
-                    <mainClass>CacheSynch</mainClass>
+                    <mainClass>SFListener</mainClass>
                     <name>synch</name>
                 </program>
                 <program>
