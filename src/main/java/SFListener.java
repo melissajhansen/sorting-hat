@@ -108,25 +108,6 @@ public class SFListener {
 
         });
 
-        client.getChannel(Channel.META_CONNECT).addListener(
-            new ClientSessionChannel.MessageListener() {
-            public void onMessage(ClientSessionChannel channel, Message message) {
-
-                System.out.println("[CHANNEL:META_CONNECT]: " + message);
-                boolean success = message.isSuccessful();
-                if (!success) {
-                    String error = (String) message.get("error");
-                    if (error != null) {
-                        System.out.println("Error during CONNECT: " + error);
-                        System.out.println("Exiting...");
-                        System.exit(1);
-                    }
-                } 
-            }
-
-        });
-
-
         client.handshake();
         System.out.println("Waiting for handshake");
         
