@@ -185,7 +185,7 @@ public class SFListener {
                 Integer updateSize = synch.getUpdateCount("Contact");
 
                 //Fields to query.
-                String queryFields = "Id, Dawn_or_Dusk__c, Heads_or_Tails__c, Dont_Call_Me__c, What_Instrument__c, Which_Smell__c, LastModifiedDate, CreatedDate";
+                String queryFields = "Id, FirstName, LastName, Dawn_or_Dusk__c, Heads_or_Tails__c, Dont_Call_Me__c, What_Instrument__c, Which_Smell__c, LastModifiedDate, CreatedDate";
 
                 //2. Call the SOAPFetch or BulkFetch depending on the count
                 if (updateSize != null && updateSize >=1) {
